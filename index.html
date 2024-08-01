@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2024 東京家庭旅遊</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            height: 100%;
+            overflow: hidden;
+            background-color: #f0f0f0;
+        }
+        #container {
+            height: 100vh;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+        .slide {
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+            background-color: white;
+            scroll-snap-align: start;
+            overflow-y: auto;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 0.5em;
+            color: #333;
+        }
+        h2 {
+            font-size: 2em;
+            margin-bottom: 0.5em;
+            color: #444;
+        }
+        ul, ol {
+            text-align: left;
+            padding-left: 20px;
+            margin-top: 10px;
+        }
+        li {
+            margin-bottom: 15px;
+        }
+        p {
+            margin: 10px 0;
+        }
+        a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .highlight {
+            font-weight: bold;
+            color: #e44d26;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <!-- 投影片內容與之前相同 -->
+        <div class="slide">
+            <h1>2024 家庭旅遊 - 東京</h1>
+            <p>東京家庭旅遊</p>
+            <p>8/4(日) ~ 8/9(六)</p>
+        </div>
+
+        <div class="slide">
+            <h2>行前準備</h2>
+            <ul>
+                <li>至少五件換洗衣物</li>
+                <li>睡衣</li>
+                <li>充電器</li>
+                <li>盥洗用品</li>
+                <li>藥物</li>
+                <li>輕便的隨身包包</li>
+                <li>現金、信用卡</li>
+                <li>網路</li>
+            </ul>
+        </div>
+
+        <div class="slide">
+            <h2>Day 1 (8/4 日)</h2>
+            <p>0620 出發</p>
+            <p>航班：CI220</p>
+            <p>09:00 松山機場 - 13:10 東京羽田機場</p>
+            <p>入住飯店：<a href="https://maps.app.goo.gl/kkrDymuXVNmoYTWn7" target="_blank">新宿王子大飯店</a></p>
+            <p>下午：明治神宮、新宿御苑</p>
+            <p>晚上：澀谷</p>
+        </div>
+
+        <div class="slide">
+            <h2>Day 2 (8/5 一)</h2>
+            <p class="highlight">白天：輕井澤</p>
+            <p>去程：</p>
+            <ul>
+                <li>Asama 607 TOKYO(09:44) → KARUIZAWA(11:02)</li>
+                <li>5 車 6D, 6E, 7D, 7E</li>
+            </ul>
+            <p>回程：</p>
+            <ul>
+                <li>Hakutaka 570 KARUIZAWA(18:09) → TOKYO(19:12)</li>
+                <li>10 車 15B, 15C, 16B, 16C</li>
+            </ul>
+            <p>晚上：銀座（上野）</p>
+        </div>
+
+        <div class="slide">
+            <h2>Day 3 (8/6 二)</h2>
+            <ul>
+                <li>吉卜力美術館</li>
+                <li>中目黒</li>
+                <li>台場</li>
+            </ul>
+            <p>備案：澀谷、銀座</p>
+        </div>
+
+        <div class="slide">
+            <h2>Day 4 (8/7 三)</h2>
+            <p>早上：築地市場</p>
+            <p>下午：麻布台</p>
+            <p class="highlight">teamlab (13:30~14:00 進場)</p>
+        </div>
+
+        <div class="slide">
+            <h2>Day 5 (8/8 四)</h2>
+            <p class="highlight">1200 敘敘苑 新宿中央东口店</p>
+            <ul>
+                <li>明治神宮</li>
+                <li>淺草</li>
+                <li>秋葉原</li>
+            </ul>
+        </div>
+
+        <div class="slide">
+            <h2>Day 6 (8/9 五)</h2>
+            <p>航班：CI221</p>
+            <p>14:30 東京羽田機場 - 16:55 松山機場</p>
+        </div>
+    </div>
+
+    <script>
+        const container = document.getElementById('container');
+        const slides = document.querySelectorAll('.slide');
+        let currentSlide = 0;
+        let touchStartY = 0;
+        let touchEndY = 0;
+        let isSwiping = false;
+
+        function scrollToSlide(index) {
+            slides[index].scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function handleSwipe() {
+            const swipeDistance = touchStartY - touchEndY;
+            const threshold = window.innerHeight * 0.1; // 10% of screen height
+
+            if (swipeDistance > threshold && currentSlide < slides.length - 1) {
+                currentSlide++;
+                scrollToSlide(currentSlide);
+            } else if (swipeDistance < -threshold && currentSlide > 0) {
+                currentSlide--;
+                scrollToSlide(currentSlide);
+            } else {
+                // If the swipe wasn't long enough, stay on the current slide
+                scrollToSlide(currentSlide);
+            }
+        }
+
+        container.addEventListener('touchstart', (e) => {
+            touchStartY = e.touches[0].clientY;
+            isSwiping = true;
+        }, { passive: true });
+
+        container.addEventListener('touchmove', (e) => {
+            if (isSwiping) {
+                touchEndY = e.touches[0].clientY;
+                e.preventDefault();
+            }
+        }, { passive: false });
+
+        container.addEventListener('touchend', () => {
+            if (isSwiping) {
+                handleSwipe();
+                isSwiping = false;
+            }
+        });
+
+        // Prevent default scrolling behavior
+        document.body.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+        }, { passive: false });
+
+        // Handle mouse wheel events for desktop
+        container.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            if (e.deltaY > 0 && currentSlide < slides.length - 1) {
+                currentSlide++;
+                scrollToSlide(currentSlide);
+            } else if (e.deltaY < 0 && currentSlide > 0) {
+                currentSlide--;
+                scrollToSlide(currentSlide);
+            }
+        }, { passive: false });
+    </script>
+</body>
+</html>
